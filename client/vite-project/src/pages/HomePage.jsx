@@ -1,16 +1,23 @@
-// import HeroSection from '../components/home/HeroSection.jsx';
-// import AboutSection from '../components/home/AboutSection.jsx';
-// import ServicesSection from '../components/home/ServicesSection.jsx';
-// import Header from '../components/common/Header.jsx';
+import HeroSection from '../components/home/HeroSection.jsx';
+import AboutSection from '../components/home/AboutUsSection.jsx';
+import ServicesSection from '../components/home/ServicesSection.jsx';
+import { useGetHomePageDataQuery } from '../store/slices/HomePageApiSlice.jsx';
 
-// const HomePage = () => {
-//   return (
-//     <div className="">
-//         <HeroSection />
-//         <AboutSection />
-//         <ServicesSection />
-//     </div>
-//   );
-// };
+const HomePage = () => {
+  const { data, error, isLoading } = useGetHomePageDataQuery();
 
-// export default HomePage;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading home page data</div>;
+    console.log(data); 
+
+
+  return (
+    <div className="space-y-16 py-8">
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+    </div>
+  );
+};
+
+export default HomePage;

@@ -4,8 +4,12 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
+ theme: {
+    extend: {
+      colors: {
+        offwhite: '#f2f0ef',
+      },
+    },
   },
   plugins: [],
 }
