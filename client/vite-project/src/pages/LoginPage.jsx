@@ -19,7 +19,7 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-128px)]">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center">Login</h1>
+        <h1 className="text-2xl font-bold text-center">LOGIN</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">

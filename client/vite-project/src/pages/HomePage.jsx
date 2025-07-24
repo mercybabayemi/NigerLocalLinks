@@ -6,8 +6,8 @@ import { useGetHomePageDataQuery } from '../store/slices/HomePageApiSlice.jsx';
 const HomePage = () => {
   const { data, error, isLoading } = useGetHomePageDataQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading home page data</div>;
+  //if (isLoading) return <div>Loading...</div>;
+  //if (error) return <div>Error loading home page data</div>;
     console.log(data); 
 
 
