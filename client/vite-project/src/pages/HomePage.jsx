@@ -12,10 +12,14 @@ const HomePage = () => {
 
 
   return (
-    <div className="space-y-16 py-8">
+    <div >
         <HeroSection />
-        <AboutSection />
-        <ServicesSection />
+        <div id='about'>
+          <AboutSection />
+        </div>
+        <div id='services'>
+          <ServicesSection />
+        </div>
     </div>
   );
 };

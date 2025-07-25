@@ -9,6 +9,9 @@ export default {
       colors: {
         offwhite: '#f2f0ef',
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   plugins: [],
