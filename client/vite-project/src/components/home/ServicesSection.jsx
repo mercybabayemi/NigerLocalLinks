@@ -1,40 +1,49 @@
 import ServicesCard from "../common/ServicesCard";
+import Menu from "../../assets/Menu.png";
+import Activity from "../../assets/Activity.png";
+import Tool from "../../assets/Tool.png";
+import Monitor from "../../assets/Monitor.png";
+import Sliders from "../../assets/Sliders (1).png";
 
 const ServicesSection = () => {
   const services = [
     {
-      icon: "/path/to/Menu.png",
+      icon: Menu ,
       title: "Register Businesses",
     },
     {
-      icon: "/path/to/Activity.png",
+      icon: Activity,
       title: "Register Projects"
     },
     {
-      icon: "/path/to/Tool.png",
+      icon: Tool,
       title: "Handle Registered Businesses Complaints"
     },
     {
-      icon: "/path/to/Monitor.png",
+      icon: Monitor,
       title: "Records of Businesses and Projects"
     },
     {
-      icon: "/path/to/Sliders.png",
+      icon: Sliders,
       title: "Verify Uploaded Payment Receipts"
     }
   ];
 
   return (
-    <section className="">
-        <h1 className="">Our Services</h1>
-        <div className="">
-            {services.map((service, index) => (
-                <ServicesCard 
-                    key={index} 
-                    icon={service.icon} 
-                    title={service.title}
-                />
-            ))}
+    <section className="bg-[#F2F0EF] py-12">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl font-bold text-center text-[#EBD1AE] mb-8">Our Services</h1>
+          <div className="flex flex-wrap justify-center -mx-4 gap-5">
+              {services.map((service, index) => (
+                  <div className= {`w-full md:w-1/3 xl:w-1/4 px-4 mb-8 ${ index % 2 === 0 ? "bg-white" : "bg-black"}`} key={index}>
+                    <ServicesCard 
+                      icon={service.icon} 
+                      title={service.title}
+                      isBlackBackground={index % 2 !== 0}
+                  />
+                  </div>
+              ))}
+          </div>
         </div>
     </section>
   );
