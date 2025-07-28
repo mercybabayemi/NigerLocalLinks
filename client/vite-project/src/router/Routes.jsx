@@ -28,11 +28,12 @@ const router = createBrowserRouter([
         path: 'register',
         element: <RegisterPage />,
       },
-      {
-        path: '/redirect',
-        element: <RoleRedirect />
-      }
+      // other layout-based routes...
     ],
+  },
+  {
+    path: '/redirect',
+    element: <RoleRedirect />
   },
   {
     path: "/admin",
@@ -49,8 +50,29 @@ const router = createBrowserRouter([
       { 
         path: 'findlocal', 
         element: <FindLocal /> 
-      },
-    ],
+      },],
+  },
+  {
+    path: "/officer",
+    element: <Layout />,
+    children: [
+      {
+      index: true, 
+      element: <OfficerLandingPage />, 
+    },
+    { 
+      path: 'createRecord', 
+      element: <CreateRecord /> 
+    },
+    { 
+      path: 'findlocal', 
+      element: <FindLocal /> 
+    },
+    { 
+      path: 'officerregisteringlocal', 
+      element: <OfficerRegisteringLocal /> 
+    },
+  ],
   },
   {
     path: "/local",
@@ -63,32 +85,10 @@ const router = createBrowserRouter([
       { 
         path: 'findlocal', 
         element: <FindLocal /> 
-      },
-    ],
+      },],
   },
-  {
-    path: "/officer",
-    element: <Layout />,
-    children: [
-      {
-        index: true, 
-        element: <OfficerLandingPage />, 
-      },
-      { 
-        path: 'createRecord', 
-        element: <CreateRecord /> 
-      },
-      { 
-        path: 'findlocal', 
-        element: <FindLocal /> 
-      },
-      { 
-        path: 'officerregisteringlocal', 
-        element: <OfficerRegisteringLocal /> 
-      },
-    ],
-  }
 ]);
+
 
 export default router;
 

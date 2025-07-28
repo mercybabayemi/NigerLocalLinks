@@ -8,11 +8,11 @@ const RoleRedirect = () => {
 
   switch (user.role) {
     case 'ADMIN':
-      return <Navigate to="/admin-dashboard" />;
+      return <Navigate to="/admin" />;
     case 'OFFICER':
-      return <Navigate to="/officer-dashboard" />;
+      return <Navigate to="/officer" />;
     case 'LOCAL':
-      return <Navigate to="/local-dashboard" />;
+      return <Navigate to="/local" />;
     default:
       return <Navigate to="/" />;
   }
