@@ -8,7 +8,12 @@ import LocalLandingPage from "../pages/LocalLandingPage.jsx";
 import OfficerLandingPage from "../pages/OfficerLandingPage.jsx";
 import CreateRecord from "../pages/CreateRecord.jsx";
 import FindLocal from "../pages/FindLocal.jsx";
-import OfficerRegisteringLocal from "../pages/OfficerRegisteringLocal.jsx";
+import RegisterLocal from "../pages/RegisterLocal.jsx";
+import CreateDispute from "../pages/CreateDispute.jsx";
+import SettleDispute from "../pages/SettleDispute.jsx";
+import SeePaymentOutstanding from "../pages/SeePaymentOutstanding.jsx";
+import UploadProofOfPayment from "../pages/UploadProofOfPayment.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -45,6 +50,14 @@ const router = createBrowserRouter([
         path: 'findlocal', 
         element: <FindLocal /> 
       },
+      { 
+        path: 'settledispute', 
+        element: <SettleDispute /> 
+      },
+      { 
+        path: 'registerlocal', 
+        element: <RegisterLocal /> 
+      },
     ],
   },
   {
@@ -56,8 +69,16 @@ const router = createBrowserRouter([
         element: <LocalLandingPage />, 
       },
       { 
-        path: 'findlocal', 
-        element: <FindLocal /> 
+        path: 'seepaymentoutstanding', 
+        element: <SeePaymentOutstanding /> 
+      },
+      { 
+        path: 'createdispute', 
+        element: <CreateDispute /> 
+      },
+      { 
+        path: 'uploadproofofpayment', 
+        element: <UploadProofOfPayment /> 
       },
     ],
   },
@@ -78,8 +99,8 @@ const router = createBrowserRouter([
         element: <FindLocal /> 
       },
       { 
-        path: 'officerregisteringlocal', 
-        element: <OfficerRegisteringLocal /> 
+        path: 'registerlocal', 
+        element: <RegisterLocal /> 
       },
     ],
   }
