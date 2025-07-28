@@ -1,10 +1,16 @@
+import { createBrowserRouter } from "react-router-dom";
+import HomePage from '../pages/HomePage.jsx';
+import Layout from "../components/layout/Layout.jsx";
+import LoginPage from "../pages/LoginPage.jsx";
+import RegisterPage from "../pages/RegisterPage.jsx";
+import RoleRedirect from '../pages/RoleRedirect';
 import AdminLandingPage from "../pages/AdminLandingPage.jsx";
 import LocalLandingPage from "../pages/LocalLandingPage.jsx";
 import OfficerLandingPage from "../pages/OfficerLandingPage.jsx";
 import CreateRecord from "../pages/CreateRecord.jsx";
 import FindLocal from "../pages/FindLocal.jsx";
 import OfficerRegisteringLocal from "../pages/OfficerRegisteringLocal.jsx";
-import RoleRedirect from '../pages/RoleRedirect'
+
 const router = createBrowserRouter([
   {
     path: "/",
