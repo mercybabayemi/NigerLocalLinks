@@ -9,7 +9,12 @@ import LocalLandingPage from "../pages/LocalLandingPage.jsx";
 import OfficerLandingPage from "../pages/OfficerLandingPage.jsx";
 import CreateRecord from "../pages/CreateRecord.jsx";
 import FindLocal from "../pages/FindLocal.jsx";
-import OfficerRegisteringLocal from "../pages/OfficerRegisteringLocal.jsx";
+import RegisterLocal from "../pages/RegisterLocal.jsx";
+import CreateDispute from "../pages/CreateDispute.jsx";
+import SettleDispute from "../pages/SettleDispute.jsx";
+import SeePaymentOutstanding from "../pages/SeePaymentOutstanding.jsx";
+import UploadProofOfPayment from "../pages/UploadProofOfPayment.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -28,7 +33,6 @@ const router = createBrowserRouter([
         path: 'register',
         element: <RegisterPage />,
       },
-      // other layout-based routes...
     ],
   },
   {
@@ -40,39 +44,26 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        index: true, 
-        element: <AdminLandingPage />, 
+        index: true,
+        element: <AdminLandingPage />,
       },
-      { 
-        path: 'createrecord', 
-        element: <CreateRecord /> 
-      },
-      { 
-        path: 'findlocal', 
-        element: <FindLocal /> 
-      },],
-  },
-  {
-    path: "/officer",
-    element: <Layout />,
-    children: [
       {
-      index: true, 
-      element: <OfficerLandingPage />, 
-    },
-    { 
-      path: 'createRecord', 
-      element: <CreateRecord /> 
-    },
-    { 
-      path: 'findlocal', 
-      element: <FindLocal /> 
-    },
-    { 
-      path: 'officerregisteringlocal', 
-      element: <OfficerRegisteringLocal /> 
-    },
-  ],
+        path: 'createrecord',
+        element: <CreateRecord />
+      },
+      {
+        path: 'findlocal',
+        element: <FindLocal />
+      },
+      {
+        path: 'settledispute',
+        element: <SettleDispute />
+      },
+      {
+        path: 'registerlocal',
+        element: <RegisterLocal />
+      },
+    ],
   },
   {
     path: "/local",
@@ -82,10 +73,42 @@ const router = createBrowserRouter([
         index: true, 
         element: <LocalLandingPage />, 
       },
+      {
+        path: 'seepaymentoutstanding', 
+        element: <SeePaymentOutstanding /> 
+      },
       { 
-        path: 'findlocal', 
-        element: <FindLocal /> 
-      },],
+        path: 'createdispute', 
+        element: <CreateDispute /> 
+      },
+      { 
+        path: 'uploadproofofpayment', 
+        element: <UploadProofOfPayment /> 
+      },
+    ],
+  },
+
+  {
+    path: "/officer",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <OfficerLandingPage />,
+      },
+      {
+        path: 'createRecord',
+        element: <CreateRecord />
+      },
+      {
+        path: 'findlocal',
+        element: <FindLocal />
+      },
+      {
+        path: 'registerlocal',
+        element: <RegisterLocal />
+      },
+    ],
   },
 ]);
 
