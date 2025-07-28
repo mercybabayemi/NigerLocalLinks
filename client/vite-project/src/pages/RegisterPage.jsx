@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import authService from '../services/authService';
+import jwtDecode from 'jwt-decode'
 //import { useNavigate } from 'react-router-dom'
 //import { useDispatch, useSelector } from 'react-redux';
 
 
 const RegisterPage = () => {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { isLoading, error } = useSelector((state) => state.auth)
+  
   // const { isLoading, error } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
@@ -16,6 +23,8 @@ const RegisterPage = () => {
     phone: '',
   });
   
+  const [errorMsg, setErrorMsg] = useState('')
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -23,10 +32,23 @@ const RegisterPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //dispatch(register(formData));
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const token = await authService.register(formData)
+      const user = decodeToken(token)
+
+      if (!user) {
+        setErrorMsg('Invalid token received')
+        return
+      }
+
+      dispatch(setCredentials({ token, user }))
+      navigate('/redirect') // Let RoleRedirect handle where to send the user
+    } catch (err) {
+      setErrorMsg(err.message)
+    }
+  }
   
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F2F0EF] sm:pt-24 lg:pt-4">
