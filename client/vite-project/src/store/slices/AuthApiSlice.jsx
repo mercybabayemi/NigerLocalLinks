@@ -27,4 +27,4 @@ export const AuthApiSlice = createApi({
   }),
 });
 
-export const {useLoginMutation, useRegisterMutation, useLogoutMutation} = AuthApiSlice;
+export const {useLoginMutation, useRegisterMutation, useLogoutMutation, setCredentials} = AuthApiSlice;

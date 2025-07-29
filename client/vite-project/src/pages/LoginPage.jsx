@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate,  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import authService from '../services/authService';
+import { useLoginMutation } from '../store/slices/AuthApiSlice';
+import { setCredentials } from '../store/slices/AuthApiSlice';
+import decodeToken from '../utils/JwtHelper';
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -11,27 +13,28 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const [error, setError] = useState('')
   const dispatch = useDispatch()
-
+  const [login, { isLoading }] = useLoginMutation();
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Handle login logic here    
     try {
-      const token = await authService.login(formData)
-      const user = decodeToken(token)
+      const response = await login(formData).unwrap(); // send login request
+      const token = response.token;
+      const user = decodeToken(token);
   
       if (!user) {
-        setError('Invalid token received')
-        return
+        setError('Invalid token received');
+        return;
       }
   
-      dispatch(setCredentials({ token, user }))
-  
-      // Centralize redirection
-      navigate('/redirect')
+      dispatch(setCredentials({ token, user }));
+      navigate('/redirect');
     } catch (err) {
-      console.error(err)
-      setError(err.message)
+      console.error(err);
+      setError(err?.data?.message || 'Login failed');
     }
   }
 

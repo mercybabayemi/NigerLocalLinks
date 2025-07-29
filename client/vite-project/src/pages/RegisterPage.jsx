@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import authService from '../services/authService';
-import jwtDecode from 'jwt-decode'
-//import { useNavigate } from 'react-router-dom'
+import { useRegisterMutation } from '../store/slices/AuthApiSlice';
+import { setCredentials } from '../store/slices/AuthApiSlice'
+import decodeToken from '../utils/JwtHelper';
 //import { useDispatch, useSelector } from 'react-redux';
 
 
 const RegisterPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isLoading, error } = useSelector((state) => state.auth)
   
   // const { isLoading, error } = useSelector((state) => state.auth);
-
+  const [register, { isLoading }] = useRegisterMutation();
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -35,7 +34,8 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const token = await authService.register(formData)
+      const response = await register(formData).unwrap()
+      const token = await response.token
       const user = decodeToken(token)
 
       if (!user) {
@@ -46,7 +46,8 @@ const RegisterPage = () => {
       dispatch(setCredentials({ token, user }))
       navigate('/redirect') // Let RoleRedirect handle where to send the user
     } catch (err) {
-      setErrorMsg(err.message)
+      console.error(err)
+      setErrorMsg(err?.data?.message || 'Register failed')
     }
   }
   
@@ -97,6 +98,7 @@ const RegisterPage = () => {
     </div>
   );
 };
+export default RegisterPage;
 
   
   // const [formData, setFormData] = useState({
@@ -154,4 +156,3 @@ const RegisterPage = () => {
   //   </div>
   // )
 
-export default RegisterPage;
