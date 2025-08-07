@@ -12,7 +12,7 @@ const RegisterPage = () => {
   const navigate = useNavigate()
   
   // const { isLoading, error } = useSelector((state) => state.auth);
-  const [register, { isLoading }] = useRegisterMutation();
+  const [register, { isLoading, error }] = useRegisterMutation();
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -85,13 +85,12 @@ const RegisterPage = () => {
             <button
               type="submit"
               className="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-[#EBD1AE]"
-              //disabled={isLoading}
+              disabled={isLoading}
             >
-              Register
-              {/* {isLoading ? 'Registering...' : 'Register'} */}
+              {isLoading ? 'Registering...' : 'Register'}
             </button>
           </form>
-          {/* {error && <p className="text-red-500 mt-4 text-center">{error}</p>} */}
+          {errorMsg && <p className="text-red-500 mt-4 text-center">{errorMsg}</p>}
         </div>
       </main>
 

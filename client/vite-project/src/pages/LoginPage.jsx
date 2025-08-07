@@ -82,7 +82,7 @@ const LoginPage = () => {
               type="submit"
               className="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-[#EBD1AE]"
             >
-              Login
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </div>
           <div>
@@ -91,6 +91,7 @@ const LoginPage = () => {
             </p>
           </div>
         </form>
+        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
       </div>
     </div>
   )

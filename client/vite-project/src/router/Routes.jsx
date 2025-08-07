@@ -14,6 +14,8 @@ import CreateDispute from "../pages/CreateDispute.jsx";
 import SettleDispute from "../pages/SettleDispute.jsx";
 import SeePaymentOutstanding from "../pages/SeePaymentOutstanding.jsx";
 import UploadProofOfPayment from "../pages/UploadProofOfPayment.jsx";
+// import PaymentSettings from "../pages/PaymentSettings.jsx";
+import AutoGeneratePayments from "../pages/AutoGeneratePayments.jsx";
 
 
 const router = createBrowserRouter([
@@ -63,6 +65,20 @@ const router = createBrowserRouter([
         path: 'registerlocal',
         element: <RegisterLocal />
       },
+      { 
+        path: 'uploadproofofpayment', 
+        element: <UploadProofOfPayment /> 
+      },
+      {
+        path: 'seepaymentoutstanding', 
+        element: <SeePaymentOutstanding /> 
+      },
+
+      // andrej karpathy
+      // {
+      //   path: 'payment-settings',
+      //   element: <PaymentSettings />,
+      // },
     ],
   },
   {
@@ -107,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: 'registerlocal',
         element: <RegisterLocal />
+      },
+      {
+        path: 'autogeneratepayment',
+        element: <AutoGeneratePayments />,
       },
     ],
   },
