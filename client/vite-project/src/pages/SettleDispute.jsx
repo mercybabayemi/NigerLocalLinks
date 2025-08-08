@@ -1,21 +1,21 @@
-// SettleDispute.jsx
-import React, { useState, useEffect } from 'react';
-import { useGetDisputesQuery, useSettleDisputeMutation } from '../store/slices/DisputeApiSlice.jsx';
+import React from 'react';
+import { useGetDisputeQuery, useSettleDisputeMutation } from '../store/slices/DisputeApiSlice';
 
 const SettleDispute = () => {
-  const { data, isLoading, error } = useGetDisputesQuery();
+  const {
+    data,
+    isLoading,
+    error,
+    isUninitialized,
+  } = useGetDisputeQuery(undefined, {
+    skip: true,
+  });
   const [settleDispute, { isLoading: isSettling, error: settleError }] = useSettleDisputeMutation();
-  const [disputeId, setDisputeId] = useState(null);
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      setDisputeId(data[0].id);
-    }
-  }, [data]);
+  const [disputeId, setDisputeId] = React.useState(null);
 
   const handleSettle = async () => {
     try {
-      await settleDispute(disputeId).unwrap();
+      await settleDispute({ disputeId, settlementData: {} }).unwrap();
     } catch (error) {
       console.error(error);
     }
@@ -30,13 +30,13 @@ const SettleDispute = () => {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center pt-16">
       <div className="w-1/2 p-4 border border-black">
         <h1 className="text-2xl font-bold">Settle Dispute</h1>
-        {data && data.length > 0 ? (
-          <p>Dispute ID: {disputeId}</p>
+        {isUninitialized ? (
+          <p>No dispute data available.</p>
         ) : (
-          <p>No disputes found.</p>
+          <p>Dispute ID: {disputeId}</p>
         )}
         <button
           onClick={handleSettle}

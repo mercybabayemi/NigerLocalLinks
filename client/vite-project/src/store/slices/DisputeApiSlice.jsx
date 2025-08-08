@@ -29,7 +29,7 @@ export const DisputeApiSlice = createApi({
 });
 
 export const {
-  useGetDisputesQuery,
+  useGetDisputeQuery,
   useSettleDisputeMutation,
   useCreateDisputeMutation,
 } = DisputeApiSlice;

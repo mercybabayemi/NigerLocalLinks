@@ -1,13 +1,13 @@
-// CreateDispute.jsx
 import React, { useState } from 'react';
-import { useCreateDisputeMutation } from '../store/slices/DisputeApiSlice.jsx';
+import { useCreateDisputeMutation } from '../store/slices/DisputeApiSlice';
 
 const CreateDispute = () => {
   const [formData, setFormData] = useState({
     description: '',
   });
 
-  const [createDispute, { isLoading, error }] = useCreateDisputeMutation();
+  const [createDispute, { isLoading: isCreatingDispute, error: createDisputeError, isSuccess }] =
+    useCreateDisputeMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +24,10 @@ const CreateDispute = () => {
         <h1 className="text-2xl font-bold">Create Dispute</h1>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-4">
-            <label>Description:</label>
+            <label className="block text-sm font-medium text-gray-700">Description:</label>
             <textarea
+              placeholder='Enter dispute description here'
+              className="w-full p-2 mt-1 border rounded-md"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             />
@@ -37,7 +39,13 @@ const CreateDispute = () => {
             Create Dispute
           </button>
         </form>
-        {error && <p className="text-red-500">{error.message}</p>}
+        {isCreatingDispute ? (
+          <p>Creating dispute...</p>
+        ) : createDisputeError ? (
+          <p className="text-red-500">{createDisputeError.message}</p>
+        ) : isSuccess ? (
+          <p className="text-green-500">Dispute created successfully!</p>
+        ) : null}
       </div>
     </div>
   );
