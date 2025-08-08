@@ -31,6 +31,7 @@ const SettleDispute = () => {
 
   return (
     <div className="flex justify-center pt-16">
+    <div className="flex justify-center pt-16">
       <div className="w-1/2 p-4 border border-black">
         <h1 className="text-2xl font-bold">Settle Dispute</h1>
         {isUninitialized ? (
