@@ -7,11 +7,16 @@ const SettleDispute = () => {
     isLoading,
     error,
     isUninitialized,
-  } = useGetDisputeQuery(undefined, {
-    skip: true,
-  });
+  } = useGetDisputeQuery();
+
   const [settleDispute, { isLoading: isSettling, error: settleError }] = useSettleDisputeMutation();
   const [disputeId, setDisputeId] = React.useState(null);
+
+  React.useEffect(() => {
+    if (data && data.id) {
+      setDisputeId(data.id);
+    }
+  }, [data]);
 
   const handleSettle = async () => {
     try {
@@ -31,10 +36,9 @@ const SettleDispute = () => {
 
   return (
     <div className="flex justify-center pt-16">
-    <div className="flex justify-center pt-16">
       <div className="w-1/2 p-4 border border-black">
         <h1 className="text-2xl font-bold">Settle Dispute</h1>
-        {isUninitialized ? (
+        {isUninitialized || !data ? (
           <p>No dispute data available.</p>
         ) : (
           <p>Dispute ID: {disputeId}</p>
@@ -42,6 +46,7 @@ const SettleDispute = () => {
         <button
           onClick={handleSettle}
           className="px-4 py-2 text-white bg-black rounded-full hover:bg-[#EBD1AE]"
+          disabled={!disputeId || isSettling}
         >
           Settle Dispute
         </button>
