@@ -7,13 +7,10 @@ import { useLogoutMutation } from "../../store/slices/AuthApiSlice";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-const { authData } = useSelector((state) => {
-  console.log('state is ', state);
-  console.log('auth is ', state.authApi);
-  return state.authApi;
-});
+  const { authData } = useSelector((state) => state.auth || {});
   const [logout, { isLoading }] = useLogoutMutation();
-
+  
+  
   const handleLogout = async () => {
     try {
       await logout().unwrap();

@@ -1,12 +1,28 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import { apiSlice } from './ApiSlice'; // your shared base apiSlice
 
-export const HomePageApiSlice = createApi({
-  reducerPath: 'homePageApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api' }),  // backend URL
-  endpoints: (builder) => ({
-    getHomePageData: builder.query({
-      query: () => '/homepage',  // relative path on backend
-    }),
-  }),
-})
-export const { useGetHomePageDataQuery } = HomePageApiSlice;
+
+
+// export const HomePageApiSlice = apiSlice.injectEndpoints({
+//   endpoints: (builder) => ({
+//     getHomePageData: builder.query({
+//       query: () => ({
+//         url: '/homepage.json', // file in /public folder
+//         baseUrl: '' // stops API base URL from being prepended
+//       }),
+//     }),
+//   }),
+//   overrideExisting: false,
+// });
+
+
+
+// // export const HomePageApiSlice = apiSlice.injectEndpoints({
+// //   endpoints: (builder) => ({
+// //     getHomePageData: builder.query({
+// //       query: () => '/homepage', // backend relative path
+// //     }),
+// //   }),
+// //   overrideExisting: false, // optional
+// // });
+
+// export const { useGetHomePageDataQuery } = HomePageApiSlice;

@@ -1,8 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './ApiSlice';
 
-export const PaymentApiSlice = createApi({
-  reducerPath: 'paymentApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api' }),
+export const PaymentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     uploadProofOfPayment: builder.mutation({
       query: (paymentData) => ({
@@ -12,10 +10,7 @@ export const PaymentApiSlice = createApi({
       }),
     }),
     getPaymentOutstanding: builder.query({
-      query: () => ({
-        url: '/payments/outstanding',
-        method: 'GET',
-      }),
+      query: () => '/payments/outstanding', // simple query shorthand
     }),
     updatePaymentStatus: builder.mutation({
       query: (paymentStatusData) => ({
@@ -25,6 +20,7 @@ export const PaymentApiSlice = createApi({
       }),
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {
