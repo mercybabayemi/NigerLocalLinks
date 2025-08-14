@@ -1,31 +1,26 @@
-// DisputeApiSlice.jsx
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './ApiSlice';
 
-export const DisputeApiSlice = createApi({
-  reducerPath: 'disputeApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api' }),
+export const DisputeApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getDispute: builder.query({
-      query: (disputeId) => ({
-        url: `/disputes/${disputeId}`,
-        method: 'GET',
-      }),
+      query: (disputeId) => `/disputes/${disputeId}`, // simplified syntax
     }),
     settleDispute: builder.mutation({
       query: ({ disputeId, settlementData }) => ({
-        url: `/disputes/${disputeId}/settle`,
+        url: `/settleDisputes/${disputeId}/settle`,
         method: 'PATCH',
         body: settlementData,
       }),
     }),
     createDispute: builder.mutation({
       query: (disputeData) => ({
-        url: '/disputes',
+        url: '/dispute',
         method: 'POST',
         body: disputeData,
       }),
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {

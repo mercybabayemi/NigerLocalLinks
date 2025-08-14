@@ -1,36 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { HomePageApiSlice } from './slices/HomePageApiSlice.jsx';
-import { AuthApiSlice } from './slices/AuthApiSlice.jsx';
-import { AutoPaymentGenerationApiSlice } from './slices/AutoPaymentGenerationApiSlice.jsx';
-import { CreateRecordApiSlice } from './slices/CreateRecordApiSlice.jsx';
-import { DisputeApiSlice } from './slices/DisputeApiSlice.jsx';
-import { LocalsApiSlice } from './slices/LocalsApiSlice.jsx';
-import { PaymentApiSlice } from './slices/PaymentApiSlice.jsx';
-// import { PaymentConfigApiSlice } from './slices/PaymentConfigApiSlice.jsx';
+import { apiSlice } from './slices/ApiSlice';  // your shared base apiSlice
+import authReducer from './slices/AuthSlice.jsx';
 
 export const store = configureStore({
   reducer: {
-    [HomePageApiSlice.reducerPath]: HomePageApiSlice.reducer,
-    [AuthApiSlice.reducerPath]: AuthApiSlice.reducer,
-    [AutoPaymentGenerationApiSlice.reducerPath]: AutoPaymentGenerationApiSlice.reducer,
-    [CreateRecordApiSlice.reducerPath]: CreateRecordApiSlice.reducer,
-    [DisputeApiSlice.reducerPath]: DisputeApiSlice.reducer,
-    [LocalsApiSlice.reducerPath]: LocalsApiSlice.reducer,
-    [PaymentApiSlice.reducerPath]: PaymentApiSlice.reducer,
-    // [PaymentConfigApiSlice.reducerPath]: PaymentConfigApiSlice.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer, // only one RTK Query reducer
+    auth: authReducer,                        // other slices as usual
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      HomePageApiSlice.middleware,
-      AuthApiSlice.middleware,
-      AutoPaymentGenerationApiSlice.middleware,
-      CreateRecordApiSlice.middleware,
-      DisputeApiSlice.middleware,
-      LocalsApiSlice.middleware,
-      PaymentApiSlice.middleware,
-      // PaymentConfigApiSlice.middleware
-    ),
+    getDefaultMiddleware().concat(apiSlice.middleware), // add middleware once
 });
 
 setupListeners(store.dispatch);

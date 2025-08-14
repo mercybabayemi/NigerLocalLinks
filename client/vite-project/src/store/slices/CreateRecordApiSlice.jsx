@@ -1,17 +1,16 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './ApiSlice'; // import your base apiSlice
 
-export const CreateRecordApiSlice = createApi({
-  reducerPath: 'createRecordApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api' }),
+export const CreateRecordApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createRecord: builder.mutation({
       query: (recordData) => ({
-        url: '/createrecord',
+        url: '/createRecord',
         method: 'POST',
         body: recordData,
       }),
     }),
   }),
+  overrideExisting: false, // optional
 });
 
 export const { useCreateRecordMutation } = CreateRecordApiSlice;

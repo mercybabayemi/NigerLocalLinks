@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../store/slices/AuthApiSlice';
-import { setCredentials } from '../store/slices/AuthApiSlice'
+import { setCredentials } from '../store/slices/AuthSlice'
 import decodeToken from '../utils/JwtHelper';
 //import { useDispatch, useSelector } from 'react-redux';
 
