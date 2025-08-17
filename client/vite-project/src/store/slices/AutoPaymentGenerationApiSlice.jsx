@@ -1,9 +1,7 @@
 // AutoPaymentGenerationApiSlice.jsx
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './ApiSlice'; // import the base apiSlice
 
-export const AutoPaymentGenerationApiSlice = createApi({
-  reducerPath: 'autoPaymentGenerationApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api' }),
+export const AutoPaymentGenerationApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     generatePayments: builder.mutation({
       query: () => ({
@@ -12,6 +10,7 @@ export const AutoPaymentGenerationApiSlice = createApi({
       }),
     }),
   }),
+  overrideExisting: false, // optional, defaults to false
 });
 
 export const { useGeneratePaymentsMutation } = AutoPaymentGenerationApiSlice;

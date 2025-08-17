@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate,  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../store/slices/AuthApiSlice';
-import { setCredentials } from '../store/slices/AuthApiSlice';
+import { setCredentials } from '../store/slices/AuthSlice';
 import decodeToken from '../utils/JwtHelper';
 const LoginPage = () => {
   const [formData, setFormData] = useState({

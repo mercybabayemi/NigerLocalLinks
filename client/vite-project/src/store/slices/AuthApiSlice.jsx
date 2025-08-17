@@ -1,26 +1,33 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { apiSlice } from './ApiSlice';
+import { setCredentials } from './AuthSlice'; // ✅ points to the file above
 
-export const AuthApiSlice = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8080/api' }),
+export const AuthApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
-        query: (credentials) => ({
-            url: '/login',
-            method: 'POST',
-            body: credentials,
-        }),
+      query: (credentials) => ({
+        url: '/auth/login',
+        method: 'POST',
+        body: credentials,
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setCredentials(data)); // ✅ Save token & user
+        } catch (err) {
+          console.error(err);
+        }
+      },
     }),
     register: builder.mutation({
-        query: (userData) => ({
-            url: '/register',
-            method: 'POST',
-            body: userData,
-        }),
-    }),
-     registerLocal: builder.mutation({
       query: (userData) => ({
-        url: '/register-local', // adjust the URL as needed
+        url: '/auth/register',
+        method: 'POST',
+        body: userData,
+      }),
+    }),
+    registerLocal: builder.mutation({
+      query: (userData) => ({
+        url: '/auth/registerLocal',
         method: 'POST',
         body: userData,
       }),
@@ -34,4 +41,9 @@ export const AuthApiSlice = createApi({
   }),
 });
 
-export const {useLoginMutation, useRegisterMutation, useRegisterLocalMutation, useLogoutMutation, setCredentials} = AuthApiSlice;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useRegisterLocalMutation,
+  useLogoutMutation,
+} = AuthApiSlice;
