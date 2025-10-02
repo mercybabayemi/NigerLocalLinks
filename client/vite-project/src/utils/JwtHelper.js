@@ -12,17 +12,13 @@ const decodeToken = (token) => {
       return null;
     }
 
-    // Convert expiration to milliseconds
-    if (decoded.exp) {
-      decoded.expiresAt = new Date(decoded.exp * 1000);
-    }
-
     return {
       id: decoded.sub,
       firstName: decoded.firstName || '',
       role: decoded.role,
       email: decoded.email || '',
-      expiresAt: decoded.expiresAt
+      // Store as ISO string instead of Date object for Redux compatibility
+      expiresAt: decoded.exp ? new Date(decoded.exp * 1000).toISOString() : null
     };
   } catch (error) {
     console.error('Token decoding failed:', error);
@@ -32,7 +28,10 @@ const decodeToken = (token) => {
 
 export const isTokenValid = (token) => {
   const decoded = decodeToken(token);
-  return decoded && decoded.expiresAt > new Date();
+  if (!decoded || !decoded.expiresAt) return false;
+  
+  // Convert ISO string back to Date for comparison
+  return new Date(decoded.expiresAt) > new Date();
 };
 
 export default decodeToken;

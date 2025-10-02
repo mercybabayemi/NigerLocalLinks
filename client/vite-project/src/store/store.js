@@ -1,15 +1,33 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
-import { apiSlice } from './slices/ApiSlice';  // your shared base apiSlice
-import authReducer from './slices/AuthSlice.jsx';
+import authReducer from './slices/AuthSlice';
+import { apiSlice } from './slices/ApiSlice';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['auth']
+};
+
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+
+// Create the store
 export const store = configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer, // only one RTK Query reducer
-    auth: authReducer,                        // other slices as usual
+    auth: persistedAuthReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware), // add middleware once
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(apiSlice.middleware),
 });
 
-setupListeners(store.dispatch);
+// Create the persistor
+export const persistor = persistStore(store);
+
+// Remove this line: export default store;
