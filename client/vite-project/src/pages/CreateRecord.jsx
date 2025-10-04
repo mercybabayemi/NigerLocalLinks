@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCreateRecordMutation } from "../store/slices/CreateRecordApiSlice.jsx";
 import { useNavigate } from "react-router-dom";
-import { uploadImage } from "../utils/cloudinaryUpload";
+import {uploadImage} from "../utils/CloudinaryUpload.js";
 import { FileText, DollarSign, MessageSquare, User, MapPin, Upload, Loader2, AlertCircle } from "lucide-react";
 
 const CreateRecord = () => {
