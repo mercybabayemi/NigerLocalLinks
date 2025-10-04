@@ -1,9 +1,9 @@
-// src/features/auth/authSlice.js
+// AuthSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: null,        // holds logged-in user details
-  token: null,       // JWT or session token
+  user: null,
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -14,10 +14,22 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
+      
+      // Optional: Also store in localStorage as backup
+      if (token) {
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('💾 Token saved to localStorage as backup');
+      }
     },
     logOut: (state) => {
       state.user = null;
       state.token = null;
+      
+      // Clear localStorage on logout
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+      console.log('🧹 localStorage cleared on logout');
     },
   },
 });

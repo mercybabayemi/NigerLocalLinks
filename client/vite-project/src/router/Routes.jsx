@@ -16,6 +16,11 @@ import SeePaymentOutstanding from "../pages/SeePaymentOutstanding.jsx";
 import UploadProofOfPayment from "../pages/UploadProofOfPayment.jsx";
 // import PaymentSettings from "../pages/PaymentSettings.jsx";
 import AutoGeneratePayments from "../pages/AutoGeneratePayments.jsx";
+import RecordSuccess from '../pages/RecordSuccess.jsx';
+import LocalRegisterSuccess from "../pages/LocalRegisterSuccess.jsx";
+import DisputeSuccess from "../pages/DisputeSuccess.jsx";
+
+
 
 
 const router = createBrowserRouter([
@@ -40,6 +45,25 @@ const router = createBrowserRouter([
   {
     path: '/redirect',
     element: <RoleRedirect />
+  },
+  {
+    path: "/record-success",
+    element: <RecordSuccess />,   
+    loader: () => ({
+    state: {
+      recordId: 'TEST123',
+      title: 'Test Record Title',
+      fee: '₦10,000'
+    }
+  }),
+  },
+  {
+    path: "/local-register-success",
+    element: <LocalRegisterSuccess/>
+  },
+  {
+    path: "/dispute-success",
+    element: <DisputeSuccess/>
   },
   {
     path: "/admin",
@@ -103,7 +127,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-
+  
   {
     path: "/officer",
     element: <Layout />,
